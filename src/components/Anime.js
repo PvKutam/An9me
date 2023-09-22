@@ -135,13 +135,17 @@ const Main = styled.div`
 display:flex;
 flex-direction:column;
 padding:1.7rem 0;
+  
+
 h1{
   color:#FFC118;
   font-size:2rem;
-  padding-bottom:1rem;
+  padding:1rem;
 }
 h3{
-  color:#fff
+  color:#fff;
+  
+  
 }
 p{
   color:#AAAAAA;
@@ -152,8 +156,9 @@ p{
   }
 }
 img{
-  width: 100%;
-  height: 100%;
+  margin:0 auto;
+  max-width: 500px; 
+  height: auto;
 
 }
 @media (max-width:2560px){
@@ -163,13 +168,15 @@ img{
     width:80%;
   }
   img{
-    width: 80%;
-  height: 80%;
+    max-width: 80%;
+  height: auto;
   }
 }
 `
+
 const Submain = styled.div`
   p {
+    
     display: flex;
     font-size: 1rem;
     color: #fff;
