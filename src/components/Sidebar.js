@@ -32,6 +32,9 @@ padding-right:5rem;
 padding-left:2rem;
 padding-bottom:2rem;
 border:3px solid  RGB(255, 193, 25);
+@media (max-width: 768px) {
+  display: none;
+}
 .anime{
   margin-top:1rem;
   gap:.5rem;
@@ -43,6 +46,8 @@ border:3px solid  RGB(255, 193, 25);
     border-radius:5px;
     border: 5px solid  RGB(255, 193, 25);
   }
+
+  
 }
 `;
 

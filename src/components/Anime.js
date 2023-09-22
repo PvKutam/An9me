@@ -9,21 +9,7 @@ const Anime = () => {
   const [character, setCharacter] = useState([]);
   const [readMore, setReadMore] = useState(false);
 
-  const {
-    title,
-    synopsis,
-    trailer,
-    duration,
-    aired,
-    season,
-    score,
-    images,
-    rank,
-    scored_by,
-    popularity,
-    status,
-    rating,
-    source,
+  const {title,synopsis,trailer,duration,aired,season,score,images,rank,scored_by,popularity,status, rating, source,
   } = anime;
 
   const getanime = async (anime) => {
@@ -43,220 +29,186 @@ const Anime = () => {
     getCharacter(id);
   }, []);
   return (
-    <Animestyle>
-      <h1>{title}</h1>
-      <div className="details">
-        <div className="detail">
-          <div className="image">
+    <>
+      <Container>
+          <Main className="detail">
             <img src={images?.jpg.large_image_url} alt="" />
+            <div>
+            <h1>{title}</h1>
+            <h3>Overview</h3>
+            <p className="description">
+              {readMore ? synopsis : synopsis?.substring(0, 450) + "..."}
+              <button
+                onClick={() => {
+                  setReadMore(!readMore);
+                }}
+              >
+                {readMore ? "Show less" : "Show More"}
+              </button>
+            </p>
+            </div>
+          </Main>
+            <Submain className="anime-details">
+              <p>
+                <span  className="item-head">Aired:</span>
+                <span className="item-name">{aired?.string}</span>
+              </p>
+              <p>
+                <span className="item-head">Rating:</span>
+                <span className="item-name">{rating}</span>
+              </p>
+              <p>
+                <span className="item-head">Rank:</span>
+                <span className="item-name">{rank}</span>
+              </p>
+              <p>
+                <span className="item-head">Score:</span>
+                <span className="item-name">{score}</span>
+              </p>
+              <p>
+                <span className="item-head">Scored By:</span>
+                <span className="item-name">{scored_by}</span>
+              </p>
+              <p>
+                <span className="item-head">Popularity:</span>
+                <span className="item-name">{popularity}</span>
+              </p>
+              <p>
+                <span className="item-head">Status:</span>
+                <span className="item-name">{status}</span>
+              </p>
+              <p>
+                <span className="item-head">Source:</span>
+                <span className="item-name">{source}</span>
+              </p>
+              <p>
+                <span className="item-head">Season:</span>
+                <span className="item-name">{season}</span>
+              </p>
+              <p>
+                <span className="item-head">Duration:</span>
+                <span className="item-name">{duration}</span>
+              </p>
+            </Submain>
+            
+          {/* Trailer */}
+          <Trailer>
+          <h3 className="title">Trailer</h3>
+          <div className="trailer-con">
+            {trailer?.embed_url ? (
+              <iframe
+                src={trailer?.embed_url}
+                title="Inline Frame Example"
+                width="800"
+                height="450"
+                allow="accelerometer; autoplay;clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <h3>Trailer not available</h3>
+            )}
           </div>
-          <div className="anime-details">
-            <p>
-              <span>Aired:</span>
-              <span>{aired?.string}</span>
-            </p>
-            <p>
-              <span>Rating:</span>
-              <span>{rating}</span>
-            </p>
-            <p>
-              <span>Rank:</span>
-              <span>{rank}</span>
-            </p>
-            <p>
-              <span>Score:</span>
-              <span>{score}</span>
-            </p>
-            <p>
-              <span>Scored By:</span>
-              <span>{scored_by}</span>
-            </p>
-            <p>
-              <span>Popularity:</span>
-              <span>{popularity}</span>
-            </p>
-            <p>
-              <span>Status:</span>
-              <span>{status}</span>
-            </p>
-            <p>
-              <span>Source:</span>
-              <span>{source}</span>
-            </p>
-            <p>
-              <span>Season:</span>
-              <span>{season}</span>
-            </p>
-            <p>
-              <span>Duration:</span>
-              <span>{duration}</span>
-            </p>
-          </div>
-          <p className="description">
-            {readMore ? synopsis : synopsis?.substring(0, 450) + "..."}
-            <button
-              onClick={() => {
-                setReadMore(!readMore);
-              }}
-            >
-              {readMore ? "Show less" : "Show More"}
-            </button>
-          </p>
-        </div>
-        <h3 className="title">Trailer</h3>
-        <div className="trailer-con">
-          {trailer?.embed_url ? (
-            <iframe
-              src={trailer?.embed_url}
-              title="Inline Frame Example"
-              width="800"
-              height="450"
-              allow="accelerometer; autoplay;clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          ) : (
-            <h3>Trailer not available</h3>
-          )}
-        </div>
-        <h3 className="title">Characters</h3>
-        <div className="characters">
-          {character?.map((character, index) => {
-            const { role } = character;
-            const { images, name, mal_id } = character.character;
-            return (
-              <Link to={`/character/${mal_id}`} key={index}>
-                <div className="character">
-                  <img src={images?.jpg.image_url} alt="" />
-                  <h4>{name}</h4>
-                  <p>{role}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </Animestyle>
+          </Trailer>
+        
+  
+        
+        </Container>
+    </>
   );
 };
 
-const Animestyle = styled.div`
-  padding: 3rem 18rem;
-  background-color: #000;
-  h3{
-    color: RGB(255, 193, 25) !important;
-  }
-  h1 {
-    display: inline-block;
-    color: RGB(255, 193, 25);
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-    background: RGB(255, 193, 25);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.4s ease-in-out;
-    &:hover {
-      transform: skew(-3deg);
-    }
-  }
-  .title {
-    display: inline-block;
-    margin: 3rem 0;
-    font-size: 2rem;
-    cursor: pointer;
-    background-color: RGB(255, 193, 25);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
 
-  .description {
-    margin-top: 2rem;
-    color: #6c7983;
-    line-height: 1.7rem;
-    button {
-      background-color: transparent;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: RGB(255, 193, 25);
-      font-weight: 600;
-    }
-  }
+const Container= styled.div`
+width: 80%;
+max-width: 750px;
+margin: 5rem auto;
+background: rgba(42,44,49,.5);background: rgba(42,44,49,.5);
+border:2px solid #FFC118;
+border-radius:2rem;
+@media (max-width:2560px){
+  max-width:1100px;
+}
 
-  .trailer-con {
+`
+
+const Main = styled.div`
+display:flex;
+flex-direction:column;
+padding:1.7rem 0;
+h1{
+  color:#FFC118;
+  font-size:2rem;
+  padding-bottom:1rem;
+}
+h3{
+  color:#fff
+}
+p{
+  color:#AAAAAA;
+  button{
+    border:none;
+    background: transparent;
+    color:#fff118
+  }
+}
+img{
+  width: 100%;
+  height: 100%;
+
+}
+@media (max-width:2560px){
+  width:80%;
+  margin:0 auto;
+  p{
+    width:80%;
+  }
+  img{
+    width: 80%;
+  height: 80%;
+  }
+}
+`
+const Submain = styled.div`
+  p {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    iframe {
-      outline: none;
-      border: 2px solid #e5e7eb;
-      padding: 1.5rem;
-      border-radius: 10px;
-      background-color: #1b1b1b;
+    font-size: 1rem;
+    color: #fff;
+    padding: 0.2rem 0;
+    .item-head {
+      color: #FFFFFF; /* Style for item-head */
+      padding-right:0.6rem;
     }
-  }
-
-  .details {
-    background-color: #1b1b1b;
-    border-radius: 20px;
-    padding: 2rem;
-    border: 3px solid RGB(255, 193, 25);
-    .detail {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      img {
-        border-radius: 7px;
-      }
+    .item-name {
+      color: #AAAAAA; /* Style for item-name */
     }
-    .anime-details {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      p {
-        display: flex;
-        gap: 1rem;
-      }
-      p span:first-child {
-        font-weight: 600;
-        color: #454e56;
-      }
-    }
-  }
-
-  .characters {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 2rem;
-    background-color: #1b1b1b;
-    padding: 2rem;
-    border-radius: 20px;
-    border: 2px solid #e5e7eb;
-    .character {
-      padding: 0.4rem 0.6rem;
-      border-radius: 7px;
-      background-color: #1b1b1b;
-      transition: all 0.4s ease-in-out;
-      img {
-        width: 100%;
-      }
-      h4 {
-        padding: 0.5rem 0;
-        color: #454e56;
-      }
-      p {
-        color: #27ae60;
-      }
-      &:hover {
-        transform: translateY(-5px);
-        background-color: #1b1b1b;
-        border: 3px solid RGB(255, 193, 25);
-        h4 {
-          color: yellow;
-        }
-      }
+    @media (max-width:2560px){
+      width:80%;
+      margin:0 auto;
     }
   }
 `;
+
+const Trailer = styled.div`
+h3{
+  font-size:2rem;
+  color:#FFC118;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  padding:2rem;
+}
+iframe{
+  width:100%;
+  border:none;
+}
+@media (max-width:2560px){
+  margin:0 auto;
+  padding: 2rem;  
+}
+}
+`
+
+
+
 
 export default Anime;
