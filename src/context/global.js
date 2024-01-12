@@ -48,11 +48,10 @@ export const GlobalContextProvider = ({ children }) => {
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
-    setSearch(e.target.value);
-    if (e.target.value === "") {
-      state.isSearch = false;
-    }
+    const inputValue = e.target.value.trim();
+    setSearch(inputValue);
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (search) {
@@ -116,6 +115,7 @@ export const GlobalContextProvider = ({ children }) => {
         searchAnime,
         search, 
         getPopular,
+
       }}
     >
       {children}

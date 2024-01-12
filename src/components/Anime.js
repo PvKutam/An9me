@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
 
 const Anime = () => {
   const { id } = useParams();
   const [anime, setAnime] = useState({});
-  const [character, setCharacter] = useState([]);
   const [readMore, setReadMore] = useState(false);
 
   const {title,synopsis,trailer,duration,aired,season,score,images,rank,scored_by,popularity,status, rating, source,
@@ -17,16 +15,9 @@ const Anime = () => {
     const data = await response.json();
     setAnime(data.data);
   };
-  const getCharacter = async (anime) => {
-    const response = await fetch(
-      `https://api.jikan.moe/v4/anime/${anime}/characters`
-    );
-    const data = await response.json();
-    setCharacter(data.data);
-  };
+ 
   useEffect(() => {
     getanime(id);
-    getCharacter(id);
   }, []);
   return (
     <>
@@ -109,9 +100,6 @@ const Anime = () => {
             )}
           </div>
           </Trailer>
-        
-  
-        
         </Container>
     </>
   );
@@ -139,20 +127,23 @@ padding:1.7rem 0;
 
 h1{
   color:#FFC118;
-  font-size:2rem;
+  font-size:1.7rem;
   padding:1rem;
+  width:100%
 }
 h3{
   color:#fff;
-  
+  font-sixe:1.5rem;
   
 }
 p{
   color:#AAAAAA;
+  font-size:.8rem;
   button{
     border:none;
     background: transparent;
-    color:#fff118
+    color:#fff118;
+    
   }
 }
 img{
@@ -171,6 +162,7 @@ img{
     max-width: 80%;
   height: auto;
   }
+  
 }
 `
 
@@ -208,6 +200,21 @@ iframe{
   width:100%;
   border:none;
 }
+@media (max-width: 768px) {
+  h3 {
+    font-size: 1.8rem;
+    padding: 1.5rem;
+  }
+
+  .trailer-con {
+    iframe {
+      height: 200px; /* Adjust the height as needed */
+      width:100%;
+    }
+  }
+}
+
+
 @media (max-width:2560px){
   margin:0 auto;
   padding: 2rem;  
